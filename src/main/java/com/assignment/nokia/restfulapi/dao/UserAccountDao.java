@@ -1,6 +1,7 @@
 package com.assignment.nokia.restfulapi.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.assignment.nokia.restfulapi.dto.UserAccountDTO;
@@ -22,7 +23,7 @@ public class UserAccountDao {
 	}
 
 	public void createUserAccount(UserAccountDTO userAccountDTO) {
-		if(repo.findById(userAccountDTO.getId()).isPresent()) {
+		if (repo.findById(userAccountDTO.getId()).isPresent()) {
 			throw new DuplicateAccountException("UserAccount already exist for id " + userAccountDTO.getId());
 		}
 		UserAccount userAccount = convertToEntity(userAccountDTO);
@@ -39,7 +40,11 @@ public class UserAccountDao {
 	}
 
 	public void deletUserAccount(Long id) {
-		repo.deleteById(id);
+		try {
+			repo.deleteById(id);
+		} catch (EmptyResultDataAccessException ex) {
+			throw new NoDataFoundException("UserAccount doesn't exist for id " + id);
+		}
 	}
 
 	private UserAccount convertToEntity(UserAccountDTO userAccountDTO) {
@@ -65,6 +70,5 @@ public class UserAccountDao {
 		dto.setPhone(userAccount.getPhone());
 		return dto;
 	}
-
 
 }

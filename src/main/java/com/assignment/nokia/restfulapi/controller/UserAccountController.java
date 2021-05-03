@@ -21,33 +21,41 @@ import com.assignment.nokia.restfulapi.dao.UserAccountDao;
 import com.assignment.nokia.restfulapi.dto.UserAccountDTO;
 import com.assignment.nokia.restfulapi.response.APIResponse;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/userAccount")
-public class Controller {
+@Api(value = "UserAccount", description = "CRUD operation on User Account" , tags = { "UserAccount" })
+public class UserAccountController {
 
 	@Autowired
 	private UserAccountDao dao;
-
+	
+	@ApiOperation(value = "Get user account detail")
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<APIResponse> getUserAccount(@PathVariable Long id) {
 		UserAccountDTO dto = dao.getUserAccount(id);
 		return ResponseEntity.ok(APIResponse.builder().status(SUCCESS).data(dto).build());
 	}
-
+	
+	@ApiOperation(value = "Add user account")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<APIResponse> createUserAccount(@RequestBody @Valid UserAccountDTO userAccountDTO) {
 		dao.createUserAccount(userAccountDTO);
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(APIResponse.builder().status(SUCCESS).message("Record created successfully").build());
 	}
-
+	
+	@ApiOperation(value = "Update user account")
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<APIResponse> updateUserAccount(@RequestBody @Valid UserAccountDTO userAccountDTO) {
 		dao.updateUserAccount(userAccountDTO);
 		return ResponseEntity
 				.ok(APIResponse.builder().status(SUCCESS).message("Record updated successfully").build());
 	}
-
+	
+	@ApiOperation(value = "Delete user account")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<APIResponse> deletUserAccount(@PathVariable Long id) {
 		dao.deletUserAccount(id);

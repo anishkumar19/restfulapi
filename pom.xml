@@ -55,6 +55,18 @@
 			<artifactId>robotframework-selenium2library-java</artifactId>
 			<version>1.4.0.8</version>
 		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.1</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -72,6 +84,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>app</finalName>
 	</build>
 
 </project>
