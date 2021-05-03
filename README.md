@@ -28,7 +28,7 @@ The service is just a simple REST service. It uses an in-memory database (H2) to
 
 ### To view Swagger 2 API docs
 
-Run the server and browse to localhost:8080/swagger-ui.html
+Run the server and browse to http://localhost:8080/swagger-ui.html
 
 ### To view your H2 in-memory datbase
 
