@@ -33,6 +33,6 @@ Run the server and browse to http://localhost:8080/swagger-ui.html
 ### To view your H2 in-memory datbase
 
 To view and query the database you can browse to http://localhost:8080/h2-console. 
-Username is 'sa' and password is 'password'. JDBC URL : jdbc:h2:mem:test_database
+Username is 'sa', password is 'password' and JDBC URL is 'jdbc:h2:mem:test_database'.
 
 
