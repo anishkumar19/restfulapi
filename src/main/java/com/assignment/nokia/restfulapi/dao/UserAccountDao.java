@@ -1,5 +1,7 @@
 package com.assignment.nokia.restfulapi.dao;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
@@ -17,9 +19,17 @@ public class UserAccountDao {
 	private UserAccountRepository repo;
 
 	public UserAccountDTO getUserAccount(Long id) {
-		UserAccount entity = repo.findById(id).get();
-		UserAccountDTO dto = convertToDTO(entity);
-		return dto;
+		Optional<UserAccount> entity = repo.findById(id);
+
+		if (entity.isPresent()) {
+			UserAccountDTO dto = convertToDTO(entity.get());
+			return dto;
+
+		} else {
+			throw new NoDataFoundException("User account with requested id " + id + " doesn't exist");
+
+		}
+
 	}
 
 	public void createUserAccount(UserAccountDTO userAccountDTO) {
